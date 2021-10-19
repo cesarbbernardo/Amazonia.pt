@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using  Amazonia.DAL;
+using Amazonia.DAL;
 using System;
 
 namespace Amazonia.DAL.Repositorios
@@ -12,10 +12,10 @@ namespace Amazonia.DAL.Repositorios
             ListaClientes = new List<Cliente>();
             var joao = new Cliente();
             joao.Nome = "Joao";
-            joao.DataNascimento = new DateTime(1984,05,29);
+            joao.DataNascimento = new DateTime(1984, 05, 29);
 
-            var maria = new Cliente{ Nome="Maria", DataNascimento = new DateTime(1950,01,01) };
-            var marta = new Cliente{Nome="Marta",  DataNascimento =new DateTime(2021,01,02)};
+            var maria = new Cliente { Nome = "Maria", DataNascimento = new DateTime(1950, 01, 01) };
+            var marta = new Cliente { Nome = "Marta", DataNascimento = new DateTime(2021, 01, 02) };
 
             ListaClientes.Add(joao);
             ListaClientes.Add(maria);
@@ -34,7 +34,8 @@ namespace Amazonia.DAL.Repositorios
 
         public void Criar(Cliente obj)
         {
-            throw new System.NotImplementedException();
+            ListaClientes.Add(obj);
+
         }
 
         public Cliente ObterPorNome(string Nome)

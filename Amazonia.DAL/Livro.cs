@@ -7,6 +7,10 @@ namespace Amazonia.DAL
         public string Descricao { get; set; }
         public string Autor { get; set; }
         private Idioma Idioma { get; set; }   //Portugues, Espanhol, Ingles
+
+        public virtual decimal ObterPreco(){
+            return Preco;
+        }
     }
 }
 

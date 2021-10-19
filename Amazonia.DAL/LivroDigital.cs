@@ -6,5 +6,11 @@ namespace Amazonia.DAL
         public int TamanhoEmMB { get; set; }
         public string FormatoFicheiro { get; set; }  //PDF, DOC, EPUB ....
         public string InformacoesLicenca { get; set; }
+
+        public override decimal ObterPreco()
+
+        {
+            return base.ObterPreco() * 0.9M;
+        }
     }
 }
