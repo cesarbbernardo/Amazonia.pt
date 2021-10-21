@@ -1,4 +1,5 @@
-namespace Amazonia.DAL
+using System;
+namespace Amazonia.DAL.Entidades
 {
     public class AudioLivro : Livro
     {
