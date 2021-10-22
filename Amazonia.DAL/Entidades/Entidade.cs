@@ -1,21 +1,27 @@
+using System;
+
 namespace Amazonia.DAL.Entidades
 {
-    publicabstract class Entidade
-}
-{
-    public Guid Identificador { get; }
-    public string Nome { get; set; }
-
-    public Entidade()
+    public abstract class Entidade
     {
-        Identificador = Guid.NewGuid();
-    }
+        public Guid Identificador { get; }
+        public string Nome { get; set; }
 
-       public Entidade(string nome)
-    {
-        Nome = nome;
-        Identificador = Guid.NewGuid();
+        public Entidade()
+        {
+            Identificador = Guid.NewGuid();
+        }
+
+        public Entidade(string nome)
+        {
+            Nome = nome;
+            Identificador = Guid.NewGuid();
+        }
+
+
+        public override string Tostring()
+        {
+            return $"Nome: {Nome} => Identificador: {Identificador}";
+        }
     }
 }
-
-

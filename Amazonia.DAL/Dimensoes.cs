@@ -6,7 +6,7 @@ namespace Amazonia.DAL
         public float Largura { get; set; }
         ///Altura em Centimetros
         public float Altura { get; set; }
-        ///Profundide em Centimetros
+        ///Profundidade em Centimetros
         public float Profundidade { get; set; }
         ///Peso em gramas
         public float Peso { get; set; }

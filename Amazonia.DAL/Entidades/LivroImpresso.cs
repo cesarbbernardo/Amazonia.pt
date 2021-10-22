@@ -1,4 +1,3 @@
-using System;
 namespace Amazonia.DAL.Entidades
 {
     public class LivroImpresso : Livro

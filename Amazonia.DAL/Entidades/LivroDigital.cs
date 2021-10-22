@@ -1,5 +1,4 @@
-
-namespace Amazonia.DAL
+namespace Amazonia.DAL.Entidades
 {
     public class LivroDigital : Livro
     {
@@ -8,7 +7,6 @@ namespace Amazonia.DAL
         public string InformacoesLicenca { get; set; }
 
         public override decimal ObterPreco()
-
         {
             return base.ObterPreco() * 0.9M;
         }

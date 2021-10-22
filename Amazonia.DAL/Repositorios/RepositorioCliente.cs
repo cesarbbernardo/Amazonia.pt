@@ -7,10 +7,10 @@ namespace Amazonia.DAL.Repositorios
 {
     public class RepositorioCliente : IRepositorio<Cliente>
     {
-        private List<Cliente> ListaClientes;
+        private List<Cliente> Lista;
         public RepositorioCliente()
         {
-            ListaClientes = new List<Cliente>();
+            Lista = new List<Cliente>();
             var joao = new Cliente();
             joao.Nome = "Joao";
             joao.DataNascimento = new DateTime(1984, 05, 29);
@@ -18,46 +18,64 @@ namespace Amazonia.DAL.Repositorios
             var maria = new Cliente { Nome = "Maria", DataNascimento = new DateTime(1950, 01, 01) };
             var marta = new Cliente { Nome = "Marta", DataNascimento = new DateTime(2021, 01, 02) };
 
-            ListaClientes.Add(joao);
-            ListaClientes.Add(maria);
-            ListaClientes.Add(marta);
+            Lista.Add(joao);
+            Lista.Add(maria);
+            Lista.Add(marta);
         }
 
         public void Apagar(Cliente obj)
         {
-            ListaClientes.Remove(obj);
-        }
+           try
+           {
+               if (obj == null)
+                    throw new Exception("Ops");
+                else
+                    System.Console.WriteLine("Valor do objecto [" + obj + "]");
+
+                System.Console.WriteLine("Cliente a apagar: " + obj);
+                Lista.Remove(obj);
+           }
+           catch (System.Exception)
+           { 
+               System.Console.WriteLine("Ops, não conheco essa pessoa");
+           }
+        }  
+
+
+
 
         public Cliente Atualizar(string nomeAntigo, string nomeNovo)
         {
-            var clienteTemporario = ObterPorNome(nomeAntigo));
-            clienteTemporario.Nome = nomeNovo;
-
-            return clienteTemporario;
-
+            var temp = ObterPorNome(nomeAntigo);
+            temp.Nome = nomeNovo;
+            
+            return temp;
         }
 
         public void Criar(Cliente obj)
         {
-            ListaClientes.Add(obj);
-
+            Lista.Add(obj);
         }
 
-        public Cliente ObterPorNome(string Nome){
-            var resultado = ListaClientes
-                   .Where(x => x.Nome. == Nome)
-                   .OrderByDescending(x => x.Idade)
-                   .FirstOrDefault();
+        public Cliente ObterPorNome(string Nome)
+        {
+            Console.WriteLine("ObterPorNome");
+            var resultado = Lista
+                            .Where(x => x.Nome == Nome)
+                            .OrderByDescending(x => x.Idade)
+                            .FirstOrDefault();
             return resultado;
         }
 
         public List<Cliente> ObterTodos()
         {
-            return ListaClientes;
+            return Lista;
         }
+
+
        public List<Cliente> ObterTodosQueComecemPor(string comeco)
        {
-            var resultado = ListaClientes
+            var resultado = Lista
                             .Where(x => x.Nome.StartsWith(comeco))
                             .ToList();
             return resultado;
@@ -65,30 +83,36 @@ namespace Amazonia.DAL.Repositorios
 
         public List<Cliente> ObterTodosQueTenhamPeloMenos18Anos()
         {
-
-            var resultado = ListaClientes
+            System.Console.WriteLine("ObterTodosQueTenhamPeloMenos18Anos");
+            var resultado = Lista
                             .Where(x => x.Idade >= 18)
                             .ToList();
             return resultado;
          }
+         /*
+         Select top 10 * from Cliente
 
+         Select * from cliente where rowno < 10
+         */
+
+        
         public List<Cliente> ObterTodosQueTenhamPeloMenos18AnosENomeComecePor(string comeco)
         {
-
-            var resultado = ListaClientes
-                            .Where(x => x.Idade >= 18)
-                            .Where(x => x.Nome.StartsWith(comeco))
-                            .ToList();
+            System.Console.WriteLine("ObterTodosQueTenhamPeloMenos18AnosENomeComecePor");
+            var resultado = Lista
+                    .Where(x => x.Idade >= 18 && x.Nome.StartsWith(comeco))
+                    .ToList();
             return resultado;
          }
 
-        public List<string> ObterTodosQueTenhamPeloMenos18AnosENomeComecePor(string comeco)
+
+        public List<string> ObterNomeDeTodosQueTenhamPeloMenos18AnosENomeComecePor(string comeco)
         {
             System.Console.WriteLine("ObterNomeDeTodosQueTenhamPeloMenos18AnosENomeComecePor");
-            var resultado = ListaClientes //Conjunto
-                            .Where(x => x.Idade >= 18 && x.Nome.StartsWith(comeco)) //Filtro
-                            .Select(x => x.Nome.ToUpper()) //Saída/Projeção
-                            .ToList();
+            var resultado = ListaClientes //Conjunto de Pesquisa
+                .Where(x => x.Idade >= 18 && x.Nome.StartsWith(comeco)) //Filtro
+                .Select(x => x.Nome.ToUpper()) //Saída/Projeção
+                .ToList();
 
             return resultado;
          }

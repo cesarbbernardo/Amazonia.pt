@@ -1,6 +1,6 @@
-﻿using System; 
-using Amazonia.DAL;
+﻿using System;
 using Amazonia.DAL.Repositorios;
+
 
 namespace Amazonia.ConsoleAPP
 {
@@ -8,10 +8,13 @@ namespace Amazonia.ConsoleAPP
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Consulta do Database");
 
             var repo = new RepositorioCliente();
+            // var listaClientes = repo.ObterTodos();
+
             var listaClientes = repo.ObterTodosQueComecemPor("J");
+
 
             foreach (var item in listaClientes)
             {
@@ -19,23 +22,26 @@ namespace Amazonia.ConsoleAPP
             }
 
 
+
             var listaClientesAdultos = repo.ObterTodosQueTenhamPeloMenos18Anos();
             foreach (var item in listaClientesAdultos)
-
-             {
+            {
                 Console.WriteLine(item);
             }
 
-             var listaClientesAdultosComecandoComJ = repo.ObterTodosQueTenhamPeloMenos18Anos();
+
+            var listaClientesAdultosComecandoComJ = repo.ObterTodosQueTenhamPeloMenos18AnosENomeComecePor("J");
             foreach (var item in listaClientesAdultosComecandoComJ)
-
-             {
+            {
                 Console.WriteLine(item);
             }
 
+
+
+            var listagemTotal = repo.ObterTodos();
             var joao = repo.ObterPorNome("Joao");
             System.Console.WriteLine(joao);
-            System.Console.WriteLine($"Database contem: {listaClientes.Count} clientes");
+            System.Console.WriteLine($"Database contem: {listaTotal.Count} clientes");
             repo.Apagar(joao);
 
 
@@ -43,7 +49,8 @@ namespace Amazonia.ConsoleAPP
             System.Console.WriteLine($"Database contem: {listagemAposApagar.Count} clientes");
 
 
-            var clienteNovo = repo.Atualizar(joao.Nome, "Joao da Silva");
+            var maria = repo.ObterPorNome("Maria");
+            var clienteNovo = repo.Atualizar(maria.Nome, "Maria Joao da Silva");
             System.Console.WriteLine(clienteNovo);
 
             /*
