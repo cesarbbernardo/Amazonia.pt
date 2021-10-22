@@ -1,6 +1,6 @@
 using System;
 
-namespace Amazonia.DAL.Entidades;
+namespace Amazonia.DAL.Entidades
 {
     public class Cliente : Entidade
     {     
