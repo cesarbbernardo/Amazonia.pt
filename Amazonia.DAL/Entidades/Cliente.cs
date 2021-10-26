@@ -3,7 +3,7 @@ using System;
 namespace Amazonia.DAL.Entidades
 {
     public class Cliente : Entidade
-    {     
+    {
         public Morada Morada { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -14,7 +14,7 @@ namespace Amazonia.DAL.Entidades
         //
         public override string ToString()
         {
-            return $"Nome: {Nome} => Idade: {Idade} => Identificador: {Identificador}"; 
+            return $"Nome: {Nome} => Idade: {Idade} => Identificador: {Identificador}";
         }
     }
 }

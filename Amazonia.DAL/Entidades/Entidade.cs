@@ -4,9 +4,9 @@ namespace Amazonia.DAL.Entidades
 {
     public abstract class Entidade
     {
-        public Guid Identificador { get; }
+        public Guid Identificador { get;  }
         public string Nome { get; set; }
-
+        
         public Entidade()
         {
             Identificador = Guid.NewGuid();
@@ -18,10 +18,10 @@ namespace Amazonia.DAL.Entidades
             Identificador = Guid.NewGuid();
         }
 
-
-        public override string Tostring()
+        
+        public override string ToString()
         {
             return $"Nome: {Nome} => Identificador: {Identificador}";
         }
-    }
+    }    
 }

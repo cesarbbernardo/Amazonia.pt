@@ -1,2 +1,2 @@
 # Amazonia.pt
-The best E-Commerce in the World
+O melhor ecommerce do mundo
