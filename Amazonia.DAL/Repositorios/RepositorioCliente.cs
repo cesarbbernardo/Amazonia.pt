@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Amazonia.DAL.Repositorios
 {
-    public class RepositorioCliente : IRepositorio<Cliente>
+    public class RepositorioCliente : IRepositorio<Cliente>, IImpressora
     {
         private List<Cliente> Lista;
         public RepositorioCliente()
@@ -116,5 +116,10 @@ namespace Amazonia.DAL.Repositorios
 
             return resultado;
          }
+
+        public void GerarRelatorio(IImpressora impressora)
+        {
+            impressora.Imprimir();
+        }
     }
 }
