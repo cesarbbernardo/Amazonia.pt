@@ -1,16 +1,17 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Amazonia.DAL.Entidades;
 using Amazonia.DAL.Repositorios;
-using System;
-using System.Linq;
 
 public class RepositorioLivro : IRepositorio<Livro>
 {
-private List<Livro> Lista;
+    private List<Livro> Lista;
 
     public RepositorioLivro()
     {
         Lista = new List<Livro>();
+
         var lotrImp = new LivroImpresso
         {
             Nome = "O Senhor dos Aneis",
@@ -21,14 +22,19 @@ private List<Livro> Lista;
         var lotrAud = new AudioLivro
         {
             Nome = "O Senhor dos Aneis",
-            Autor = "J.R.R. Tolkien"
+            Autor = "J.R.R. Tolkien",
+            DuracaoLivro = 6,
+            FormatoFicheiro = "MP3"
         };
         Lista.Add(lotrAud);
 
         var lotrEbook = new LivroDigital
         {
             Nome = "O Senhor dos Aneis",
-            Autor = "J.R.R. Tolkien"
+            Autor = "J.R.R. Tolkien",
+            InformacoesLicenca = "Gratuito ....",
+            FormatoFicheiro = "PDF",
+            TamanhoEmMB = 100
         };
         Lista.Add(lotrEbook);
 

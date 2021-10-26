@@ -4,5 +4,10 @@ namespace Amazonia.DAL.Entidades
     {
         public int QuantidadePaginas { get; set; }
         public Dimensoes Dimensoes { get; set; }
+
+        public override string ToString()
+        {
+            return $"Livro Impresso: {Nome}";
+        }
     }
 }
