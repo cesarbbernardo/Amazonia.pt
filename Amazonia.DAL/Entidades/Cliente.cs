@@ -9,7 +9,12 @@ namespace Amazonia.DAL.Entidades
         public string Password { get; set; }
         public DateTime DataNascimento { get; set; }
         public int Idade => DateTime.Now.Year - DataNascimento.Year;
-
+        public string NumeroIdentificacaoFiscal { get; set; }
+        public bool NifEstaValido()
+        {
+            if (NumeroIdentificacaoFiscal.leght != 9)
+                return false;
+        }
 
         //
         public override string ToString()
