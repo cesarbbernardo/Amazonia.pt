@@ -1,5 +1,9 @@
 using Amazonia.DAL.Entidades;
+using Amazonia.DAL.Infraestrutura;
+using Amazonia.DAL.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Amazonia.DAL.Tests
 {
@@ -7,74 +11,97 @@ namespace Amazonia.DAL.Tests
     public class RepositorioLivroTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void DeveCriarUmObjetoDoTipoRepositorioLivros()
         {
-
-        }
-
-        [TestMethod]
-        public void DeveCriarUmObjectoDoTipoRepositorioLivros()
-        {
-            ///Arrange
+            //Arrange
             RepositorioLivro repositorio;
 
-            ///Act
+            //Act
             repositorio = new RepositorioLivro();
 
-            ///Assert
+            //Assert
             Assert.IsNotNull(repositorio);
         }
 
-
         [TestMethod]
-        public void DeveCriarUmaListaDeLivrosNoObjectoDoTipoRepositorioLivros()
+        public void DeveCriarUmaListaDeLivrosNoObjetoDoTipoRepositorioLivros()
         {
-            ///Arrange
+            //Arrange
             RepositorioLivro repositorio;
             List<Livro> livros;
             var minElementos = 1;
 
-            ///Act
+            //Act
             repositorio = new RepositorioLivro();
             livros = repositorio.ObterTodos();
-            var quantidadeLivrosNoRepositorio = livros.Count();
+            var quantidadeLivrosNoRepositorio = livros.Count;
 
-            ///Assert
+            //Assert
             Assert.IsNotNull(repositorio);
             Assert.IsNotNull(livros);
-            //Assert.IsNotNull(quantidadeLivrosNoRepositorio >= quantidadeElementos);
-            Assert.AreEqual()(quantidadeLivrosNoRepositorio >= quantidadeElementos);
-
+            Assert.IsTrue(quantidadeLivrosNoRepositorio >= minElementos);
         }
 
+
+        [Ignore] //TODO: Modificar esse teste quando a action estiver OK no GitHub
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        public void DeveCriarUmaListaDeLivrosNoObjetoDoTipoRepositorioLivrosComFalha()
+        {
+            //Arrange
+            RepositorioLivro repositorio;
+            List<Livro> livros;
+            var quantidadeElementos = 4;
+
+            //Act
+            repositorio = new RepositorioLivro();
+            livros = repositorio.ObterTodos();
+            var quantidadeLivrosNoRepositorio = livros.Count;
+
+            //Assert
+            Assert.IsNotNull(repositorio);
+            Assert.IsNotNull(livros);
+            //Assert.IsTrue(quantidadeLivrosNoRepositorio == quantidadeElementos);
+            Assert.AreEqual(quantidadeLivrosNoRepositorio, quantidadeElementos);
+        }
+
+
+        [TestMethod]
         public void DeveApagarUmLivroDaLista()
         {
-            ///Arrange
+            //arrange
             var repo = new RepositorioLivro();
             var livros = repo.ObterTodos();
             var livroAApagar = livros.FirstOrDefault();
 
-            ///Act
+            //action
             var livrosInicialmente = livros.Count;
-            repo.Apagar~(livroAApagar);
+            repo.Apagar(livroAApagar);
             var livrosDepoisDeApagar = livros.Count;
 
-            ///Assert
-            Assert.Istrue(livrosInicialmente > livrosDepoisDeApagar);
+            //assert
+            Assert.IsTrue(livrosInicialmente > livrosDepoisDeApagar);
         }
 
 
+#if !DEBUG
+        [Ignore]
+#endif
+        [TestMethod]
+        [ExpectedException(typeof(AmazoniaException))]
+        public void DeveGerarExceptionQuandoTentaApagarLivroInexistente()
+        {
+            //arrange
+            var repo = new RepositorioLivro();
+            var livros = repo.ObterTodos();
+            var livroInexistente = new LivroDigital();
 
+            //action
+            var livrosInicialmente = livros.Count;
+            repo.Apagar(livroInexistente);
+            var livrosDepoisDeApagar = livros.Count;
 
-
-
-
-
-
-
-
-
+            //assert
+            Assert.IsTrue(livrosInicialmente > livrosDepoisDeApagar);
+        }
     }
 }

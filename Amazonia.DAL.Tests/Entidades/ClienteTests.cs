@@ -1,27 +1,108 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Amazonia.DAL.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amazonia.DAL.Entidades.Tests
 {
-    [TestClass()]
+    [TestClass]    
     public class ClienteTests
     {
-        [TestMethod()]
-        public void NifEstaValidaoTest()
+        [TestMethod]
+        public void NifEstaValidoTest()
         {
             //Arrange
-            var  = new Cliente()
-            cliente.NumeroIdentificacaoFiscal = 269234950";" +
-            
-            //Act
-            var nifValido = Cliente.NifEstaValido();
+            var cliente = new Cliente
+            {
+                NumeroIdentificacaoFiscal = "269234950"
+            };
 
-            Assert.IsTrue();
+            //Act
+            var nifValido = cliente.NifEstaValido();
+
+            //Assert
+            Assert.IsTrue(nifValido);
+        }
+
+        [TestMethod]
+        public void Nif2EstaValidoTest()
+        {
+            //Arrange
+            var cliente = new Cliente
+            {
+                NumeroIdentificacaoFiscal = "260697915"
+            };
+
+            //Act
+            var nifValido = cliente.NifEstaValido();
+
+            //Assert
+            Assert.IsTrue(nifValido);
+        }
+
+
+        [TestMethod]
+        public void NifEstaInValidoTest()
+        {
+            //Arrange
+            var cliente = new Cliente
+            {
+                NumeroIdentificacaoFiscal = "269234951"
+            };
+
+            //Act
+            var nifValido = cliente.NifEstaValido();
+
+            //Assert
+            Assert.IsFalse(nifValido);
+        }
+
+
+        [TestMethod]
+        public void DeveInvalidarNifMaiorDoQue9Digitos()
+        {
+            //Arrange
+            var cliente = new Cliente
+            {
+                NumeroIdentificacaoFiscal = "2692349500"
+            };
+
+            //Act
+            var nifInvalido = !cliente.NifEstaValido();
+
+            //Assert
+            Assert.IsTrue(nifInvalido);
+        }
+
+
+        [TestMethod]
+        public void DeveInvalidarNifMenorDoQue9Digitos()
+        {
+            //Arrange
+            var cliente = new Cliente
+            {
+                NumeroIdentificacaoFiscal = "26923495"
+            };
+
+            //Act
+            var nifInvalido = !cliente.NifEstaValido();
+
+            //Assert
+            Assert.IsTrue(nifInvalido);
+        }
+
+
+        [TestMethod]
+        public void DeveInvalidarNifNumerosIguais()
+        {
+            //Arrange
+            var cliente = new Cliente
+            {
+                NumeroIdentificacaoFiscal = "111111111"
+            };
+
+            //Act
+            var nifInvalido = !cliente.NifEstaValido();
+
+            //Assert
+            Assert.IsTrue(nifInvalido);
         }
     }
 }

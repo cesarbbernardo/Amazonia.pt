@@ -2,80 +2,94 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Amazonia.DAL.Entidades;
-using Amazonia.DAL.Repositorios;
+using Amazonia.DAL.Infraestrutura;
 
-public class RepositorioLivro : IRepositorio<Livro>
+namespace Amazonia.DAL.Repositorios
 {
-    private List<Livro> Lista;
-
-    public RepositorioLivro()
+    public class RepositorioLivro : IRepositorio<Livro>
     {
-        Lista = new List<Livro>();
+        private readonly List<Livro> Lista;
 
-        var lotrImp = new LivroImpresso
+        public RepositorioLivro()
         {
-            Nome = "O Senhor dos Aneis",
-            Autor = "J.R.R. Tolkien"
-        };
-        Lista.Add(lotrImp);
+            Lista = new List<Livro>();
 
-        var lotrAud = new AudioLivro
+            var lotrImp = new LivroImpresso
+            {
+                Nome = "O Senhor dos Aneis",
+                Autor = "J.R.R. Tolkien"
+            };
+            Lista.Add(lotrImp);
+
+            var lotrAud = new AudioLivro
+            {
+                Nome = "O Senhor dos Aneis",
+                Autor = "J.R.R. Tolkien",
+                DuracaoLivro = 6,
+                FormatoFicheiro = "MP3"
+            };
+            Lista.Add(lotrAud);
+
+            var lotrEbook = new LivroDigital
+            {
+                Nome = "O Senhor dos Aneis",
+                Autor = "J.R.R. Tolkien",
+                InformacoesLicenca = "Gratuito ....",
+                FormatoFicheiro = "PDF",
+                TamanhoEmMB = 100
+            };
+            Lista.Add(lotrEbook);
+
+            var hpImp = new LivroImpresso
+            {
+                Nome = "Harry Potter",
+                Autor = "JK"
+            };
+            Lista.Add(hpImp);
+
+
+            var hgImpresso = new LivroImpresso
+            {
+                Nome = "Hunger Games",
+                Autor = "..."
+            };
+            Lista.Add(hgImpresso);
+        }
+
+
+        public void Apagar(Livro obj)
         {
-            Nome = "O Senhor dos Aneis",
-            Autor = "J.R.R. Tolkien",
-            DuracaoLivro = 6,
-            FormatoFicheiro = "MP3"
-        };
-        Lista.Add(lotrAud);
+            if (Lista.Remove(obj) == false)
+            {
+                throw new AmazoniaException("Falha ao apagar livro"); //Inicialmente uma Exceção Genérica.
+            }
+        }
 
-        var lotrEbook = new LivroDigital
+        public Livro Atualizar(string nomeAntigo, string nomeNovo)
         {
-            Nome = "O Senhor dos Aneis",
-            Autor = "J.R.R. Tolkien",
-            InformacoesLicenca = "Gratuito ....",
-            FormatoFicheiro = "PDF",
-            TamanhoEmMB = 100
-        };
-        Lista.Add(lotrEbook);
+            var temp = ObterPorNome(nomeAntigo);
+            temp.Nome = nomeNovo;
 
-        var hpImp = new LivroImpresso
+            return temp;
+        }
+
+        public void Criar(Livro obj)
         {
-            Nome = "Harry Potter",
-            Autor = "JK"
-        };
-        Lista.Add(hpImp);
-    }
+            Lista.Add(obj);
+        }
 
+        public Livro ObterPorNome(string Nome)
+        {
+            Console.WriteLine("ObterPorNome");
+            var resultado = Lista
+                            .Where(x => x.Nome == Nome)
+                            .FirstOrDefault();
+            return resultado;
+        }
 
-    public void Apagar(Livro obj)
-    {
-        Lista.Remove(obj);
-    }
-
-    public Livro Atualizar(string nomeAntigo, string nomeNovo)
-    {
-        var temp = ObterPorNome(nomeAntigo);
-        temp.Nome = nomeNovo;
-
-        return temp;
-    }
-
-    public void Criar(Livro obj)
-    {
-        Lista.Add(obj);
-    }
-
-    public Livro ObterPorNome(string Nome)
-    {
-        Console.WriteLine("ObterPorNome");
-        var resultado = Lista
-                        .Where(x => x.Nome == Nome)
-                        .FirstOrDefault();
-        return resultado;
-    }
-
-    public List<Livro> ObterTodos()
-    {
-        return Lista;
+        public List<Livro> ObterTodos()
+        {
+            return Lista;
+        }
     }
 }
